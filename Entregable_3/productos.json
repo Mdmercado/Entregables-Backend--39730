@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Producto1",
+    "description": "Mate Stanley",
+    "price": 7000,
+    "thumbnail": "sin imagen",
+    "code": "abc123",
+    "stock": 25,
+    "id": 1
+  },
+  {
+    "title": "Producto2",
+    "description": "Bombilla alpaca",
+    "price": 4000,
+    "thumbnail": "sin imagen",
+    "code": "mmk123",
+    "stock": 10,
+    "id": 2
+  }
+]
