@@ -4,4 +4,6 @@
 
 2. Navegar a la carpeta del repositorio clonado con el comando `cd Pre-entrega1`.
 
-3. Ejecutar el archivo `index.js` con el comando `node src/app.js`.
+3. En la consola una vez parado en el directorio correr el comando npm install.
+
+4. Ejecutar el archivo `index.js` con el comando `node src/app.js`.
