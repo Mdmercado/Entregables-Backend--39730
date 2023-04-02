@@ -5,6 +5,8 @@
 3. En la consola una vez parado en el directorio correr el comando `npm install`.
 4. Ejecutar el archivo `index.js` con el comando `node src/app.js`.
 
+> **Nota:** Una vez que hayas iniciado el servidor, abre tu navegador web y dirígete a `http://localhost:8080/views` para acceder a la página principal de la aplicación.
+
 ## Endpoints de utilidad para la consigna
 
 - `path "/"`: Ruta raíz que muestra la plantilla index.
