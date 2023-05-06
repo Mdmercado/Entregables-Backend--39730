@@ -1,5 +1,5 @@
 const express = require("express");
-const CartManager = require("../Manager/cartManager");
+const CartManager = require("../dao/db/cartsMongodb");
 const router = express.Router();
 const cartsRouter = new CartManager();
 
@@ -15,7 +15,11 @@ router.post("/", async (req, res) => {
 router.get("/:cid", async (req, res) => {
   try {
     const cartId = await cartsRouter.getCartById(req.params.cid);
-    res.send({ cart: cartId });
+    if (cartId) {
+      res.send({ cart: cartId });
+    } else {
+      res.status(404).json({ message: "Carrito no encontrado" });
+    }
   } catch (error) {
     res.status(404).send({ message: error.message });
   }

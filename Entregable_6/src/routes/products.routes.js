@@ -1,11 +1,13 @@
 const express = require("express");
-const ProductManager = require("../Manager/productManager");
+const ProductManager = require("../dao/db/productsMongodb.js");
+const { deleteModel } = require("mongoose");
 const productManager = new ProductManager();
 // express router
 const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     let prods = await productManager.getProducts();
+    console.log(prods);
     if (req.query.limit) {
       let limiteds = prods.slice(0, req.query.limit);
       res.send(limiteds);
@@ -16,6 +18,7 @@ router.get("/", async (req, res) => {
     res.json({ error: error.message });
   }
 });
+
 router.get("/:pid", async (req, res) => {
   let pid = req.params.pid;
   try {
@@ -38,7 +41,7 @@ router.post("/", async (req, res) => {
       category,
       thumbnail,
     } = req.body;
-    const product = await productManager.addProduct(
+    const product = await productManager.addProduct({
       title,
       description,
       code,
@@ -46,8 +49,8 @@ router.post("/", async (req, res) => {
       status,
       stock,
       category,
-      thumbnail
-    );
+      thumbnail,
+    });
     res.send(product);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -66,11 +69,19 @@ router.put("/:pid", async (req, res) => {
 
 router.delete("/:pid", async (req, res) => {
   try {
-    let productId = req.params.pid;
-    let result = await productManager.deleteProduct(productId);
-    res.json({ success: result });
+    const productId = req.params.pid;
+    const deletedProduct = await productManager.deleteProduct(productId);
+    if (deletedProduct) {
+      res.status(200).json({ success: "Producto eliminado correctamente" });
+    } else {
+      // Si no se encontró el producto, devolver un código 404
+      res.status(404).json({ message: "Producto no encontrado" });
+    }
   } catch (error) {
-    res.json({ error: error.message });
+    res.status(500).json({
+      message: "Ha ocurrido un error al eliminar el producto",
+      error: error.message,
+    });
   }
 });
 
